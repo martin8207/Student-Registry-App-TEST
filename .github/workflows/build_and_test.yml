@@ -28,6 +28,14 @@ jobs:
       run: npm install
     - name: Start the app
       run: npm run start &
-    - name: Run test
-      run: npm run test
+
+    - name: Run test and save output
+      run: npm run test | tee output.log
+      
+    - name: Upload test output as artefact
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: output.log
+
     
