@@ -10,8 +10,29 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  security_test:
 
+    runs-on: ubuntu-latest
+    
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+    - name: Install dependancies
+      run: npm install
+    
+    - name: Run security tests
+      run: npm audit
+      
+    
+
+
+  build:
+    needs: security_test
     runs-on: ubuntu-latest
     
 
